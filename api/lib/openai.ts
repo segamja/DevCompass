@@ -1,7 +1,7 @@
 import OpenAI from 'openai'
-import type { AnalysisResult, GitHubSnapshot, SkillDomain } from '../../src/types/analysis'
-import { SKILL_DOMAINS } from '../../src/types/analysis'
-import { computeLanguageDistribution } from './github'
+import type { AnalysisResult, GitHubSnapshot, SkillDomain } from '../../src/types/analysis.js'
+import { SKILL_DOMAINS } from './skill-domains.js'
+import { computeLanguageDistribution } from './github.js'
 
 const ANALYSIS_SCHEMA = {
   type: 'object' as const,
@@ -283,7 +283,7 @@ export async function runCareerCoachChat(
   history: { role: string; content: string }[],
 ): Promise<string> {
   const topRec = analysis?.career_recommendations[0]?.title || 'system design'
-  const fallback = `분석 결과를 바탕으로 "${topRec}" 학습을 우선 추천드립니다.\n\n질문: "${message}"\n\n(OpenAI API 연결 또는 DNA 분석 후 더 자세한 코칭을 받을 수 있습니다.)`
+  const fallback = `분석 결과�?바탕?�로 "${topRec}" ?�습???�선 추천?�립?�다.\n\n질문: "${message}"\n\n(OpenAI API ?�결 ?�는 DNA 분석 ?????�세??코칭??받을 ???�습?�다.)`
 
   const apiKey = process.env.OPENAI_API_KEY
   if (!apiKey || apiKey.startsWith('sk-your-')) {

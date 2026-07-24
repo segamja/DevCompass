@@ -1,4 +1,4 @@
-import type { ContributionDay, GitHubSnapshot } from '../../src/types/analysis'
+import type { ContributionDay, GitHubSnapshot } from '../../src/types/analysis.js'
 
 const GITHUB_API = 'https://api.github.com'
 const GITHUB_GRAPHQL = 'https://api.github.com/graphql'

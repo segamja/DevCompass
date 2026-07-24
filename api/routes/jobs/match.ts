@@ -1,8 +1,8 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
 import OpenAI from 'openai'
-import { getUserFromRequest, getServiceSupabase, json, methodNotAllowed, unauthorized } from '../../lib/auth'
-import { TABLES } from '../../lib/tables'
-import type { AnalysisResult } from '../../../src/types/analysis'
+import { getUserFromRequest, getServiceSupabase, json, methodNotAllowed, unauthorized } from '../../lib/auth.js'
+import { TABLES } from '../../lib/tables.js'
+import type { AnalysisResult } from '../../../src/types/analysis.js'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return methodNotAllowed(res)

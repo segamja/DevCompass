@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { getUserFromRequest, getServiceSupabase, json, unauthorized } from '../../lib/auth'
-import { TABLES } from '../../lib/tables'
+import { getUserFromRequest, getServiceSupabase, json, unauthorized } from '../../lib/auth.js'
+import { TABLES } from '../../lib/tables.js'
 
 const DEFAULT_MISSIONS = [
   { id: 'd1', type: 'daily', title: 'Write a meaningful commit message', description: 'Practice clear commit messages following conventional commits.', completed: false, points: 10 },

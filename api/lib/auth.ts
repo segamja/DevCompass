@@ -1,6 +1,6 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { TABLES } from './tables'
+import { TABLES } from './tables.js'
 
 export function getServiceSupabase(): SupabaseClient {
   const url = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL

@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { getUserFromRequest, getServiceSupabase, getGitHubToken, storeGitHubToken, json, methodNotAllowed, unauthorized } from '../../lib/auth'
-import { collectGitHubData } from '../../lib/github'
-import { TABLES } from '../../lib/tables'
+import { getUserFromRequest, getServiceSupabase, getGitHubToken, storeGitHubToken, json, methodNotAllowed, unauthorized } from '../../lib/auth.js'
+import { collectGitHubData } from '../../lib/github.js'
+import { TABLES } from '../../lib/tables.js'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'POST') return methodNotAllowed(res)
