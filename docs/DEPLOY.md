@@ -36,6 +36,7 @@ Vercel Dashboard → Project → **Settings → Environment Variables**
 | `SUPABASE_URL` | 위와 동일 URL | Production, Preview, Development |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase service_role key | Production, Preview, Development |
 | `OPENAI_API_KEY` | OpenAI API key (선택) | Production, Preview, Development |
+| `VITE_APP_URL` | `https://dev-compass-mu.vercel.app` (오류 메시지용, 선택) | Production만 |
 
 > `VITE_` 변수는 **빌드 시** 프론트에 포함됩니다. 배포 후 값을 바꾸면 **Redeploy**가 필요합니다.
 
@@ -49,9 +50,11 @@ Supabase Dashboard → **Authentication → URL Configuration**
 
 | 항목 | 값 |
 |------|-----|
-| Site URL | `https://your-app.vercel.app` |
-| Redirect URLs | `https://your-app.vercel.app/auth/callback` |
+| Site URL | `https://dev-compass-mu.vercel.app` |
+| Redirect URLs | `https://dev-compass-mu.vercel.app/auth/callback` |
 | | `http://localhost:5173/auth/callback` (로컬) |
+
+> Preview URL(`dev-compass-xxx.vercel.app`)만 Redirect URLs에 등록하면 PKCE 로그인 오류가 납니다. Production callback URL을 반드시 포함하세요.
 
 ---
 

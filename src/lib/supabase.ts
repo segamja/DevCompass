@@ -23,6 +23,16 @@ export const isSupabaseConfigured = Boolean(
   supabaseAnonKey !== 'your-anon-key',
 )
 
+/** Canonical production URL (optional). Used for error messages, not OAuth redirects. */
+export function getCanonicalAppOrigin(): string | undefined {
+  return import.meta.env.VITE_APP_URL?.replace(/\/$/, '')
+}
+
+/** OAuth callback origin — must match where login started (PKCE verifier in localStorage). */
+export function getAppOrigin(): string {
+  return window.location.origin
+}
+
 export function getAuthRedirectUrl(path = '/auth/callback') {
-  return `${window.location.origin}${path}`
+  return `${getAppOrigin()}${path}`
 }

@@ -60,6 +60,10 @@ export const en: TranslationDict = {
     callbackFailed: 'Could not verify GitHub login session. Please try again.',
     callbackErrorTitle: 'Login Failed',
     backHome: 'Back to Home',
+    pkceError:
+      'Login domain mismatch. Ensure {{url}}/auth/callback is in Supabase Redirect URLs, then sign in again from that URL. (Clear site data and retry if needed)',
+    wrongCallbackDomain:
+      'Auth callback arrived on the wrong domain ({{current}}). Please sign in again from {{url}}.',
   },
   appShell: {
     demoBanner: 'Demo Preview Mode — sample data shown. Connect GitHub for real analysis.',

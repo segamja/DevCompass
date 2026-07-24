@@ -60,6 +60,10 @@ export const ko: TranslationDict = {
     callbackFailed: 'GitHub 로그인 세션을 확인하지 못했습니다. 다시 시도해 주세요.',
     callbackErrorTitle: '로그인 실패',
     backHome: '홈으로 돌아가기',
+    pkceError:
+      '로그인 도메인이 일치하지 않습니다. Supabase Redirect URL에 {{url}}/auth/callback 이 등록되어 있는지 확인한 뒤, 해당 주소에서 GitHub 로그인을 다시 시도해 주세요. (브라우저 캐시/쿠키 삭제 후 재시도)',
+    wrongCallbackDomain:
+      '로그인 콜백이 잘못된 도메인({{current}})으로 왔습니다. {{url}} 에서 GitHub 로그인을 다시 시도해 주세요.',
   },
   appShell: {
     demoBanner: '데모 미리보기 모드 — 샘플 데이터가 표시됩니다. 실제 분석을 위해 GitHub를 연결하세요.',

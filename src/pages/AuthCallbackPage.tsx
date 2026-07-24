@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { Session } from '@supabase/supabase-js'
-import { supabase } from '@/lib/supabase'
+import { getAppOrigin, getCanonicalAppOrigin, supabase } from '@/lib/supabase'
 import { profileFromSession } from '@/lib/authProfile'
 import { api } from '@/lib/api'
 import { disableDemoMode } from '@/lib/demo'
@@ -48,6 +48,16 @@ export default function AuthCallbackPage() {
         return
       }
 
+      const canonicalOrigin = getCanonicalAppOrigin()
+      if (
+        canonicalOrigin &&
+        window.location.origin !== canonicalOrigin &&
+        window.location.hostname.endsWith('.vercel.app')
+      ) {
+        setError(t('auth.wrongCallbackDomain', { url: canonicalOrigin, current: window.location.origin }))
+        return
+      }
+
       try {
         let session = await resolveSession()
 
@@ -76,7 +86,13 @@ export default function AuthCallbackPage() {
         navigate('/dashboard', { replace: true })
       } catch (err) {
         if (cancelled) return
-        setError(err instanceof Error ? err.message : t('auth.callbackFailed'))
+        const message = err instanceof Error ? err.message : t('auth.callbackFailed')
+        if (/pkce code verifier/i.test(message)) {
+          const loginUrl = getCanonicalAppOrigin() || getAppOrigin()
+          setError(t('auth.pkceError', { url: loginUrl }))
+          return
+        }
+        setError(message)
       }
     }
 
