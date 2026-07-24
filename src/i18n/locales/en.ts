@@ -87,6 +87,8 @@ export const en: TranslationDict = {
     signOutDesc: 'Sign out of your DevCompass account',
     signOutDemoDesc: 'Exit demo preview mode',
     exitDemo: 'Exit Demo',
+    version: 'App version',
+    versionDesc: 'Currently deployed DevCompass release.',
   },
   dashboard: {
     loading: 'Loading dashboard...',
@@ -272,5 +274,8 @@ export const en: TranslationDict = {
   errors: {
     notAuthenticated: 'Not authenticated',
     apiRequestFailed: 'API request failed',
+    githubTokenMissing:
+      'GitHub API token not found. Enable "Store provider tokens" for the GitHub provider in Supabase, then sign in with GitHub again using the button below.',
+    reconnectGitHub: 'Reconnect GitHub',
   },
 }

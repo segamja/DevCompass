@@ -5,10 +5,16 @@ import { NAV_ITEMS } from '@/lib/navigation'
 import { Button } from '@/components/ui/button'
 import { useAnalyzeDNA } from '@/hooks/useAnalyzeDNA'
 import { useTranslation } from '@/i18n/useTranslation'
+import { getVersionLabel } from '@/lib/version'
 
 export function Sidebar() {
-  const { analyze, isLoading } = useAnalyzeDNA()
+  const { analyze, reset, isLoading, error } = useAnalyzeDNA()
   const { t } = useTranslation()
+
+  const handleAnalyze = () => {
+    reset()
+    analyze()
+  }
 
   return (
     <aside className="fixed left-0 top-0 h-full w-[260px] bg-surface-muted border-r border-border-base flex flex-col py-stack-lg z-50">
@@ -37,11 +43,17 @@ export function Sidebar() {
           </NavLink>
         ))}
       </nav>
-      <div className="px-6 pt-stack-md">
-        <Button className="w-full" onClick={() => analyze()} disabled={isLoading}>
+      <div className="px-6 pt-stack-md space-y-2">
+        {error && (
+          <p className="font-body-sm text-error text-center leading-snug">{error}</p>
+        )}
+        <Button className="w-full" onClick={handleAnalyze} disabled={isLoading}>
           <Icon name="bolt" filled />
           {isLoading ? t('common.analyzing') : t('appShell.analyzeDna')}
         </Button>
+        <p className="text-center font-label-sm text-label-sm text-on-surface-variant opacity-60 pt-1">
+          {getVersionLabel()}
+        </p>
       </div>
     </aside>
   )

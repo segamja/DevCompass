@@ -4,9 +4,15 @@ import { useAnalysisStore } from '@/stores/analysisStore'
 import { useAuthStore } from '@/stores/authStore'
 import { DEMO_ANALYSIS } from '@/lib/demo'
 
+export function isGitHubTokenError(message: string): boolean {
+  return /github token|re-authenticate|provider token/i.test(message)
+}
+
 export function useAnalyzeDNA() {
   const queryClient = useQueryClient()
-  const { setAnalyzing, setAnalysis } = useAnalysisStore()
+  const isAnalyzing = useAnalysisStore((s) => s.isAnalyzing)
+  const analyzeError = useAnalysisStore((s) => s.analyzeError)
+  const { setAnalyzing, setAnalysis, setAnalyzeError } = useAnalysisStore()
   const isDemo = useAuthStore((s) => s.isDemo)
 
   const mutation = useMutation({
@@ -19,7 +25,10 @@ export function useAnalyzeDNA() {
       const { analysis } = await api.runAnalysis()
       return analysis
     },
-    onMutate: () => setAnalyzing(true),
+    onMutate: () => {
+      setAnalyzeError(null)
+      setAnalyzing(true)
+    },
     onSettled: () => setAnalyzing(false),
     onSuccess: (analysis) => {
       setAnalysis(analysis)
@@ -27,11 +36,20 @@ export function useAnalyzeDNA() {
       queryClient.invalidateQueries({ queryKey: ['learning-roadmap'] })
       queryClient.invalidateQueries({ queryKey: ['repo-recommendations'] })
     },
+    onError: (err) => {
+      const message = err instanceof Error ? err.message : 'Analysis failed'
+      setAnalyzeError(message)
+    },
   })
 
   return {
-    analyze: () => mutation.mutateAsync(),
-    isLoading: mutation.isPending,
-    error: mutation.error,
+    analyze: () => mutation.mutate(),
+    reset: () => {
+      mutation.reset()
+      setAnalyzeError(null)
+    },
+    isLoading: isAnalyzing,
+    error: analyzeError,
+    needsReauth: analyzeError ? isGitHubTokenError(analyzeError) : false,
   }
 }

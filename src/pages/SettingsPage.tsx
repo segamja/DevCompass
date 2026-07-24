@@ -6,6 +6,7 @@ import { isSupabaseConfigured } from '@/lib/supabase'
 import { disableDemoMode } from '@/lib/demo'
 import { useAuthStore } from '@/stores/authStore'
 import { useTranslation } from '@/i18n/useTranslation'
+import { getVersionLabel } from '@/lib/version'
 
 export default function SettingsPage() {
   const { profile, signInWithGitHub, signOut } = useAuth()
@@ -68,6 +69,13 @@ export default function SettingsPage() {
             <Button variant="secondary" size="sm" onClick={handleSignOut}>
               {isDemo ? t('settings.exitDemo') : t('settings.signOut')}
             </Button>
+          }
+        />
+        <SettingsRow
+          title={t('settings.version')}
+          description={t('settings.versionDesc')}
+          action={
+            <span className="font-label-sm text-on-surface-variant font-mono">{getVersionLabel()}</span>
           }
         />
       </div>

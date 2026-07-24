@@ -87,6 +87,8 @@ export const ko: TranslationDict = {
     signOutDesc: 'DevCompass 계정에서 로그아웃합니다.',
     signOutDemoDesc: '데모 미리보기 모드 종료',
     exitDemo: '데모 종료',
+    version: '앱 버전',
+    versionDesc: '현재 배포된 DevCompass 버전입니다.',
   },
   dashboard: {
     loading: '대시보드 로딩 중...',
@@ -272,5 +274,8 @@ export const ko: TranslationDict = {
   errors: {
     notAuthenticated: '인증되지 않았습니다',
     apiRequestFailed: 'API 요청 실패',
+    githubTokenMissing:
+      'GitHub API 토큰을 찾을 수 없습니다. Supabase에서 GitHub Provider의 "Store provider tokens"를 켠 뒤, 아래 버튼으로 GitHub에 다시 로그인해 주세요.',
+    reconnectGitHub: 'GitHub 다시 연결',
   },
 }
