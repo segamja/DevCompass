@@ -288,7 +288,7 @@ export const ko: TranslationDict = {
     description: '서버에 더 최신 버전이 있습니다. 새로고침하면 DNA 분석 등 최신 기능을 사용할 수 있습니다.',
     current: '현재 버전',
     latest: '최신 버전',
-    hint: '브라우저 캐시 때문에 이전 버전이 보일 수 있습니다. 아래 버튼으로 업데이트해 주세요.',
+    hint: '브라우저 캐시 때문에 이전 버전이 보일 수 있습니다. 업데이트 시 관련 쿠키·저장 데이터가 삭제되며, GitHub 로그인이 필요할 수 있습니다.',
     refreshNow: '지금 업데이트',
     later: '1시간 후 다시 알림',
     dismiss: '닫기',

@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
+import { clearStorageBeforeUpdate } from '@/lib/clearUpdateStorage'
 import { APP_VERSION, GIT_SHA } from '@/lib/version'
 
 export interface ServerVersion {
@@ -81,6 +82,7 @@ export function useVersionCheck() {
   }, [updateAvailable])
 
   const refresh = useCallback(() => {
+    clearStorageBeforeUpdate()
     const url = new URL(window.location.href)
     url.searchParams.set('_v', Date.now().toString())
     window.location.replace(url.toString())

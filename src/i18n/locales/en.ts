@@ -288,7 +288,7 @@ export const en: TranslationDict = {
     description: 'A newer build is live on the server. Refresh to use the latest features including DNA analysis fixes.',
     current: 'Current version',
     latest: 'Latest version',
-    hint: 'Your browser may be serving a cached older build. Use the button below to update.',
+    hint: 'Your browser may be serving a cached older build. Updating clears related cookies and stored data; you may need to sign in with GitHub again.',
     refreshNow: 'Update now',
     later: 'Remind me in 1 hour',
     dismiss: 'Close',
