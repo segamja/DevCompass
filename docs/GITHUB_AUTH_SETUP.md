@@ -128,6 +128,8 @@ npm run dev
 
 ## Vercel 배포 시 추가 설정
 
-1. Vercel 환경 변수에 Supabase / OpenAI 키 등록
+1. Vercel 환경 변수에 Supabase / OpenAI 키 등록 (`.env.local`과 동일 + `SUPABASE_URL`)
 2. Supabase Redirect URLs에 `https://your-app.vercel.app/auth/callback` 추가
 3. Supabase Site URL을 Vercel 도메인으로 변경
+
+자세한 배포 절차: [`DEPLOY.md`](DEPLOY.md)

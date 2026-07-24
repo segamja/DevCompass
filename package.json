@@ -9,7 +9,9 @@
     "dev:full": "vercel dev",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy": "vercel --prod",
+    "deploy:preview": "vercel"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.3",

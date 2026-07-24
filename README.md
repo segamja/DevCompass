@@ -139,13 +139,53 @@ Design/        UI 디자인 목업
 
 ---
 
-## 배포 (Vercel)
+## 웹 배포 (Vercel)
+
+DevCompass는 Vercel에 **프론트(Vite) + API(Serverless)** 를 함께 배포합니다.
+
+### 빠른 배포 (GitHub 연동 — 권장)
+
+1. [vercel.com](https://vercel.com) → **Add New → Project**
+2. GitHub 저장소 **`segamja/DevCompass`** Import
+3. Framework: **Vite** (자동 감지)
+4. **Environment Variables** 입력:
+
+| 변수 | 설명 |
+|------|------|
+| `VITE_SUPABASE_URL` | Supabase Project URL |
+| `VITE_SUPABASE_ANON_KEY` | anon public key |
+| `SUPABASE_URL` | 위와 동일 URL (API용) |
+| `SUPABASE_SERVICE_ROLE_KEY` | service_role key |
+| `OPENAI_API_KEY` | OpenAI key (선택) |
+
+5. **Deploy** 클릭
+
+### 배포 후 Supabase 설정
+
+배포 URL 예: `https://devcompass-xxx.vercel.app`
+
+Supabase Dashboard → **Authentication → URL Configuration**
+
+- **Site URL:** `https://your-app.vercel.app`
+- **Redirect URLs:** `https://your-app.vercel.app/auth/callback`
+
+### CLI 배포
 
 ```bash
-npx vercel
+npm i -g vercel
+vercel login
+vercel link
+npm run deploy
 ```
 
-Vercel 환경 변수에 Supabase / OpenAI 키 등록 후, Supabase Redirect URLs에 Vercel 도메인 추가.
+상세 가이드: [`docs/DEPLOY.md`](docs/DEPLOY.md)
+
+### GitHub Actions 자동 배포 (선택)
+
+Repository Secrets에 아래 값 등록 후 `main` push 시 자동 배포:
+
+- `VERCEL_TOKEN`, `VERCEL_ORG_ID`, `VERCEL_PROJECT_ID`
+- `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`
 
 ---
 
