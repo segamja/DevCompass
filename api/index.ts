@@ -14,21 +14,21 @@ function getAppVersion(): string {
 }
 
 const routes: Record<string, () => Promise<{ default: RouteHandler }>> = {
-  'github/sync': () => import('./routes/github/sync.js'),
-  'analysis/run': () => import('./routes/analysis/run.js'),
-  'analysis/get': () => import('./routes/analysis/get.js'),
-  'profile/get': () => import('./routes/profile/get.js'),
-  'career-coach/chat': () => import('./routes/career-coach/chat.js'),
-  'career-coach/messages': () => import('./routes/career-coach/messages.js'),
-  'portfolio/generate': () => import('./routes/portfolio/generate.js'),
-  'resume/generate': () => import('./routes/resume/generate.js'),
-  'jobs/match': () => import('./routes/jobs/match.js'),
-  'repos/recommend': () => import('./routes/repos/recommend.js'),
-  'learning/roadmap': () => import('./routes/learning/roadmap.js'),
-  'university/missions': () => import('./routes/university/missions.js'),
-  'university/complete': () => import('./routes/university/complete.js'),
-  'reports/weekly': () => import('./routes/reports/weekly.js'),
-  'reports/list': () => import('./routes/reports/list.js'),
+  'github/sync': () => import('../server/routes/github/sync.js'),
+  'analysis/run': () => import('../server/routes/analysis/run.js'),
+  'analysis/get': () => import('../server/routes/analysis/get.js'),
+  'profile/get': () => import('../server/routes/profile/get.js'),
+  'career-coach/chat': () => import('../server/routes/career-coach/chat.js'),
+  'career-coach/messages': () => import('../server/routes/career-coach/messages.js'),
+  'portfolio/generate': () => import('../server/routes/portfolio/generate.js'),
+  'resume/generate': () => import('../server/routes/resume/generate.js'),
+  'jobs/match': () => import('../server/routes/jobs/match.js'),
+  'repos/recommend': () => import('../server/routes/repos/recommend.js'),
+  'learning/roadmap': () => import('../server/routes/learning/roadmap.js'),
+  'university/missions': () => import('../server/routes/university/missions.js'),
+  'university/complete': () => import('../server/routes/university/complete.js'),
+  'reports/weekly': () => import('../server/routes/reports/weekly.js'),
+  'reports/list': () => import('../server/routes/reports/list.js'),
 }
 
 function getRouteKey(req: VercelRequest): string {
