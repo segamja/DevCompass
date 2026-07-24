@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { getUserFromRequest, getServiceSupabase, json, methodNotAllowed, unauthorized } from '../../_lib/auth'
-import { runAIAnalysis } from '../../_lib/openai'
-import { TABLES } from '../../_lib/tables'
+import { getUserFromRequest, getServiceSupabase, json, methodNotAllowed, unauthorized } from '../../lib/auth'
+import { runAIAnalysis } from '../../lib/openai'
+import { TABLES } from '../../lib/tables'
 import type { GitHubSnapshot } from '../../../src/types/analysis'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {

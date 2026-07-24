@@ -12,21 +12,21 @@ Object.assign(process.env, loadEnv('development', root, ''))
 type Handler = (req: VercelRequest, res: VercelResponse) => Promise<unknown>
 
 const routes: Record<string, () => Promise<{ default: Handler }>> = {
-  '/api/github/sync': () => import('../api/_routes/github/sync'),
-  '/api/analysis/run': () => import('../api/_routes/analysis/run'),
-  '/api/analysis/get': () => import('../api/_routes/analysis/get'),
-  '/api/profile/get': () => import('../api/_routes/profile/get'),
-  '/api/career-coach/chat': () => import('../api/_routes/career-coach/chat'),
-  '/api/career-coach/messages': () => import('../api/_routes/career-coach/messages'),
-  '/api/portfolio/generate': () => import('../api/_routes/portfolio/generate'),
-  '/api/resume/generate': () => import('../api/_routes/resume/generate'),
-  '/api/jobs/match': () => import('../api/_routes/jobs/match'),
-  '/api/repos/recommend': () => import('../api/_routes/repos/recommend'),
-  '/api/learning/roadmap': () => import('../api/_routes/learning/roadmap'),
-  '/api/university/missions': () => import('../api/_routes/university/missions'),
-  '/api/university/complete': () => import('../api/_routes/university/complete'),
-  '/api/reports/weekly': () => import('../api/_routes/reports/weekly'),
-  '/api/reports/list': () => import('../api/_routes/reports/list'),
+  '/api/github/sync': () => import('../api/routes/github/sync'),
+  '/api/analysis/run': () => import('../api/routes/analysis/run'),
+  '/api/analysis/get': () => import('../api/routes/analysis/get'),
+  '/api/profile/get': () => import('../api/routes/profile/get'),
+  '/api/career-coach/chat': () => import('../api/routes/career-coach/chat'),
+  '/api/career-coach/messages': () => import('../api/routes/career-coach/messages'),
+  '/api/portfolio/generate': () => import('../api/routes/portfolio/generate'),
+  '/api/resume/generate': () => import('../api/routes/resume/generate'),
+  '/api/jobs/match': () => import('../api/routes/jobs/match'),
+  '/api/repos/recommend': () => import('../api/routes/repos/recommend'),
+  '/api/learning/roadmap': () => import('../api/routes/learning/roadmap'),
+  '/api/university/missions': () => import('../api/routes/university/missions'),
+  '/api/university/complete': () => import('../api/routes/university/complete'),
+  '/api/reports/weekly': () => import('../api/routes/reports/weekly'),
+  '/api/reports/list': () => import('../api/routes/reports/list'),
 }
 
 function readBody(req: IncomingMessage): Promise<string> {

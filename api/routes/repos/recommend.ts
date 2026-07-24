@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { getUserFromRequest, getServiceSupabase, json, unauthorized } from '../../_lib/auth'
-import { TABLES } from '../../_lib/tables'
+import { getUserFromRequest, getServiceSupabase, json, unauthorized } from '../../lib/auth'
+import { TABLES } from '../../lib/tables'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') return json(res, 405, { error: 'Method not allowed' })
@@ -10,10 +10,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const supabase = getServiceSupabase()
   const { data } = await supabase
-    .from(TABLES.learningRoadmap)
-    .select('items')
+    .from(TABLES.repoRecommendations)
+    .select('repos')
     .eq('user_id', user.id)
     .single()
 
-  return json(res, 200, { items: data?.items ?? [] })
+  return json(res, 200, { repos: data?.repos ?? [] })
 }
