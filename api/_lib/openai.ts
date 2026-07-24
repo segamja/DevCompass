@@ -227,7 +227,7 @@ export async function runAIAnalysis(snapshot: GitHubSnapshot): Promise<AnalysisR
     starred: snapshot.starred.slice(0, 10),
     languages: snapshot.languages,
     readmes: Object.fromEntries(
-      Object.entries(snapshot.readmes).map(([k, v]) => [k, v.replace(/[^\w\s.,!?-]/g, ' ').slice(0, 1500)]),
+      Object.entries(snapshot.readmes).map(([k, v]) => [k, String(v).replace(/[^\w\s.,!?-]/g, ' ').slice(0, 1500)]),
     ),
     total_contributions: snapshot.total_contributions,
   }
@@ -282,27 +282,35 @@ export async function runCareerCoachChat(
   analysis: AnalysisResult | null,
   history: { role: string; content: string }[],
 ): Promise<string> {
+  const topRec = analysis?.career_recommendations[0]?.title || 'system design'
+  const fallback = `분석 결과를 바탕으로 "${topRec}" 학습을 우선 추천드립니다.\n\n질문: "${message}"\n\n(OpenAI API 연결 또는 DNA 분석 후 더 자세한 코칭을 받을 수 있습니다.)`
+
   const apiKey = process.env.OPENAI_API_KEY
-  if (!apiKey) {
-    return `Based on your profile, I'd recommend focusing on ${analysis?.career_recommendations[0]?.title || 'system design'}. Your question: "${message}" — Connect OpenAI API for full AI coaching.`
+  if (!apiKey || apiKey.startsWith('sk-your-')) {
+    return fallback
   }
 
-  const openai = new OpenAI({ apiKey })
-  const response = await openai.chat.completions.create({
-    model: 'gpt-4o',
-    messages: [
-      {
-        role: 'system',
-        content: `You are DevCompass Career Coach. Help developers grow their careers based on their GitHub analysis. Be concise, specific, and actionable.\n\nDeveloper context: ${JSON.stringify(analysis?.developer_dna || [])} | Archetype: ${analysis?.primary_archetype || 'Unknown'} | Skills: ${JSON.stringify(analysis?.skill_scores || {})}`,
-      },
-      ...history.slice(-10).map((m) => ({
-        role: m.role as 'user' | 'assistant',
-        content: m.content,
-      })),
-      { role: 'user', content: message },
-    ],
-    max_tokens: 1000,
-  })
+  try {
+    const openai = new OpenAI({ apiKey })
+    const response = await openai.chat.completions.create({
+      model: 'gpt-4o',
+      messages: [
+        {
+          role: 'system',
+          content: `You are DevCompass Career Coach. Help developers grow their careers based on their GitHub analysis. Be concise, specific, and actionable. Reply in the same language as the user's message.\n\nDeveloper context: ${JSON.stringify(analysis?.developer_dna || [])} | Archetype: ${analysis?.primary_archetype || 'Unknown'} | Skills: ${JSON.stringify(analysis?.skill_scores || {})}`,
+        },
+        ...history.slice(-10).map((m) => ({
+          role: m.role as 'user' | 'assistant',
+          content: m.content,
+        })),
+        { role: 'user', content: message },
+      ],
+      max_tokens: 1000,
+    })
 
-  return response.choices[0]?.message?.content || 'I could not generate a response. Please try again.'
+    return response.choices[0]?.message?.content || fallback
+  } catch (err) {
+    console.error('Career coach OpenAI error:', err)
+    return fallback
+  }
 }

@@ -12,7 +12,7 @@ export function useCareerCoach() {
 
   const sendMutation = useMutation({
     mutationFn: (message: string) => api.sendCareerCoachMessage(message),
-    onSuccess: () => {
+    onSettled: () => {
       queryClient.invalidateQueries({ queryKey: ['career-coach-messages'] })
     },
   })
@@ -22,5 +22,6 @@ export function useCareerCoach() {
     isLoading: messagesQuery.isLoading,
     sendMessage: sendMutation.mutateAsync,
     isSending: sendMutation.isPending,
+    sendError: sendMutation.error instanceof Error ? sendMutation.error.message : null,
   }
 }

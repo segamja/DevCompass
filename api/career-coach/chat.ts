@@ -41,15 +41,19 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       history || [],
     )
 
-    const { data: assistantMsg } = await supabase
+    const { data: assistantMsg, error: insertError } = await supabase
       .from(TABLES.careerCoachMessages)
       .insert({ user_id: user.id, role: 'assistant', content: reply })
       .select()
       .single()
 
+    if (insertError) {
+      console.error('Failed to save assistant message:', insertError)
+    }
+
     return json(res, 200, {
       reply,
-      message: assistantMsg,
+      message: assistantMsg ?? { id: crypto.randomUUID(), role: 'assistant', content: reply, created_at: new Date().toISOString() },
     })
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'Chat failed'
