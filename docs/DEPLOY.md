@@ -91,6 +91,11 @@ Supabase SQL Editor에서 `supabase/migrations/001_initial.sql` 실행 (최초 1
 ### OAuth redirect 오류
 - Supabase Redirect URLs에 **정확한** Vercel 도메인 포함 여부 확인
 
+### API 404 / DNA 분석 무반응
+- Vercel에서 `/api/*` 요청이 404면 `api/index.ts` 단일 라우터 + `vercel.json` rewrite 확인
+- 배포 후 `https://your-app.vercel.app/api?route=health` → `{"ok":true}` 응답 확인
+- Vercel **Redeploy** 실행
+
 ### API 500 / GitHub sync 실패
 - `SUPABASE_SERVICE_ROLE_KEY` 설정 확인
 - Vercel Function Logs에서 에러 확인

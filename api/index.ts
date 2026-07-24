@@ -20,6 +20,22 @@ const routes: Record<string, () => Promise<{ default: RouteHandler }>> = {
   'reports/list': () => import('./_routes/reports/list'),
 }
 
+function getRouteKey(req: VercelRequest): string {
+  const route = req.query.route
+  if (route) {
+    return Array.isArray(route) ? route.join('/') : route
+  }
+
+  const path = req.query.path
+  if (path) {
+    return Array.isArray(path) ? path.join('/') : path
+  }
+
+  const url = req.url || ''
+  const match = url.match(/\/api\/([^?]+)/)
+  return match?.[1] || ''
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Access-Control-Allow-Headers', 'Authorization, Content-Type')
@@ -28,12 +44,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(204).end()
   }
 
-  const pathParam = req.query.path
-  const routeKey = Array.isArray(pathParam) ? pathParam.join('/') : pathParam || ''
-  const loader = routes[routeKey]
+  const routeKey = getRouteKey(req)
 
+  if (routeKey === 'health') {
+    return res.status(200).json({ ok: true, service: 'devcompass-api' })
+  }
+
+  const loader = routes[routeKey]
   if (!loader) {
-    return res.status(404).json({ error: 'Not found' })
+    return res.status(404).json({ error: `Route not found: ${routeKey || '(empty)'}` })
   }
 
   try {

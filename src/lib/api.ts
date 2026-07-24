@@ -33,6 +33,9 @@ async function apiFetch<T>(path: string, options: RequestInit = {}): Promise<T> 
   })
   if (!res.ok) {
     const err = await res.json().catch(() => ({ error: res.statusText }))
+    if (res.status === 404) {
+      throw new Error('API 서버를 찾을 수 없습니다. Vercel 배포 설정을 확인해 주세요.')
+    }
     throw new Error(err.error || 'API request failed')
   }
   return res.json()
