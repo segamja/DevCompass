@@ -1,0 +1,15 @@
+export const NAV_ITEMS = [
+  { path: '/dashboard', labelKey: 'nav.dashboard', icon: 'dashboard' },
+  { path: '/developer-dna', labelKey: 'nav.developerDna', icon: 'strikethrough_s' },
+  { path: '/skill-analysis', labelKey: 'nav.skillAnalysis', icon: 'analytics' },
+  { path: '/growth-timeline', labelKey: 'nav.growthTimeline', icon: 'timeline' },
+  { path: '/career-coach', labelKey: 'nav.careerCoach', icon: 'psychology' },
+  { path: '/learning-roadmap', labelKey: 'nav.learningRoadmap', icon: 'map' },
+  { path: '/repo-recommendations', labelKey: 'nav.repoRecommendations', icon: 'source' },
+  { path: '/job-matching', labelKey: 'nav.jobMatching', icon: 'work' },
+  { path: '/portfolio', labelKey: 'nav.portfolio', icon: 'person_pin' },
+  { path: '/resume', labelKey: 'nav.resume', icon: 'description' },
+  { path: '/github-university', labelKey: 'nav.githubUniversity', icon: 'school' },
+  { path: '/weekly-report', labelKey: 'nav.weeklyReport', icon: 'summarize' },
+  { path: '/settings', labelKey: 'nav.settings', icon: 'settings' },
+] as const

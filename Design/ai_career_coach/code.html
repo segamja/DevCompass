@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Career Coach | DevCompass</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary": "#3525cd",
+                    "inverse-primary": "#c3c0ff",
+                    "primary-fixed-dim": "#c3c0ff",
+                    "surface": "#f9f9ff",
+                    "on-primary-container": "#dad7ff",
+                    "surface-variant": "#dce2f7",
+                    "on-error-container": "#93000a",
+                    "on-secondary-fixed": "#23005c",
+                    "on-secondary-fixed-variant": "#5516be",
+                    "primary-fixed": "#e2dfff",
+                    "on-primary-fixed": "#0f0069",
+                    "on-tertiary-container": "#ffd4a4",
+                    "on-primary-fixed-variant": "#3323cc",
+                    "on-tertiary": "#ffffff",
+                    "tertiary": "#684000",
+                    "outline-variant": "#c7c4d8",
+                    "secondary-fixed": "#e9ddff",
+                    "surface-container-high": "#e1e8fd",
+                    "on-secondary-container": "#fffbff",
+                    "surface-tint": "#4d44e3",
+                    "success": "#10B981",
+                    "error-container": "#ffdad6",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-surface": "#141b2b",
+                    "border-base": "#E5E7EB",
+                    "primary-container": "#4f46e5",
+                    "on-surface-variant": "#464555",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "on-secondary": "#ffffff",
+                    "surface-bg": "#FFFFFF",
+                    "surface-bright": "#f9f9ff",
+                    "inverse-surface": "#293040",
+                    "ai-glow": "rgba(139, 92, 246, 0.1)",
+                    "background": "#f9f9ff",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#d0bcff",
+                    "outline": "#777587",
+                    "tertiary-container": "#885500",
+                    "tertiary-fixed": "#ffddb8",
+                    "inverse-on-surface": "#edf0ff",
+                    "surface-muted": "#F9FAFB",
+                    "surface-container-highest": "#dce2f7",
+                    "surface-dim": "#d3daef",
+                    "secondary-container": "#8455ef",
+                    "on-error": "#ffffff",
+                    "on-background": "#141b2b",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "surface-container": "#e9edff",
+                    "surface-container-low": "#f1f3ff",
+                    "on-primary": "#ffffff",
+                    "surface-subtle": "#F3F4F6",
+                    "secondary": "#6b38d4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "stack-sm": "8px",
+                    "gutter": "24px",
+                    "stack-lg": "32px",
+                    "margin-mobile": "16px",
+                    "margin-desktop": "32px",
+                    "container-max": "1280px",
+                    "stack-md": "16px"
+            },
+            "fontFamily": {
+                    "headline-lg-mobile": ["Inter"],
+                    "label-md": ["JetBrains Mono"],
+                    "body-md": ["Inter"],
+                    "body-lg": ["Inter"],
+                    "headline-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "headline-xl": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-sm": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "headline-lg-mobile": ["28px", {"lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                    "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                    "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body { background-color: #f9f9ff; }
+        .chat-scroll::-webkit-scrollbar { width: 6px; }
+        .chat-scroll::-webkit-scrollbar-track { background: transparent; }
+        .chat-scroll::-webkit-scrollbar-thumb { background: #E5E7EB; border-radius: 10px; }
+        .glass-panel { backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.8); }
+        .ai-pulse { animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: .5; } }
+    </style>
+</head>
+<body class="font-body-md text-on-surface overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-[260px] bg-surface-muted border-r border-border-base flex flex-col py-stack-lg z-50">
+<div class="px-6 mb-stack-lg">
+<h1 class="font-headline-md text-headline-md font-bold text-on-surface">DevCompass</h1>
+<p class="font-label-sm text-label-sm text-on-surface-variant opacity-70">AI Developer OS</p>
+</div>
+<nav class="flex-1 px-3 space-y-1">
+<!-- Mapping JSON Items -->
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-subtle transition-colors group" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]" data-icon="dashboard">dashboard</span>
+<span class="font-body-md">Dashboard</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-subtle transition-colors group" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]" data-icon="dna">strikethrough_s</span>
+<span class="font-body-md">Developer DNA</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-primary font-bold border-r-2 border-primary bg-surface-subtle" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]" data-icon="psychology">psychology</span>
+<span class="font-body-md">Career Coach</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-subtle transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]" data-icon="timeline">timeline</span>
+<span class="font-body-md">Growth Timeline</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-subtle transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]" data-icon="map">map</span>
+<span class="font-body-md">Learning Roadmap</span>
+</a>
+<a class="flex items-center px-3 py-2 rounded-lg text-on-surface-variant hover:text-on-surface hover:bg-surface-subtle transition-colors" href="#">
+<span class="material-symbols-outlined mr-3 text-[20px]" data-icon="work">work</span>
+<span class="font-body-md">Job Matching</span>
+</a>
+</nav>
+<div class="px-4 mt-auto">
+<button class="w-full py-3 px-4 rounded-xl bg-primary text-white font-semibold flex items-center justify-center gap-2 hover:opacity-90 transition-all">
+<span class="material-symbols-outlined" data-icon="dna">strikethrough_s</span>
+<span>Analyze DNA</span>
+</button>
+</div>
+</aside>
+<!-- Top Bar -->
+<header class="fixed top-0 right-0 left-[260px] h-16 bg-surface-bg border-b border-border-base flex items-center justify-between px-margin-desktop z-40">
+<div class="flex items-center bg-surface-subtle rounded-lg px-3 py-1.5 w-96">
+<span class="material-symbols-outlined text-on-surface-variant text-[20px]" data-icon="search">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm w-full ml-2 text-on-surface" placeholder="Search career insights..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="sync_alt">sync_alt</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-all active:scale-95 relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full"></span>
+</button>
+<div class="h-8 w-px bg-border-base mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="font-label-md text-label-md text-on-surface">Alex Rivera</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">L4 Engineer</p>
+</div>
+<img class="w-10 h-10 rounded-full border border-border-base" data-alt="A professional studio portrait of a young software engineer with a friendly and focused expression, set against a clean minimalist light grey background. The lighting is soft and corporate, matching the high-performance developer-centric aesthetic of the platform. The image is crisp and detailed." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAO-wXAtKzZtmkK3vJXLlpWRD3uZKQJ_WuzpfLBV2eAd-_-_Biybs_ddGS8Dj4PhZhm0SMPzghO6RYtwDhXrAzlpfT4YlkgcpIqz8PmrTarWyARnFzOMxaz-NK9J5jt-jhXeYoexPAWJaypbJ43fvMCO85jLjE2N9NazIVbyl9mZ3yGiXgKq8XeOguccfsQl-0pFFwt8VWqmpg-FwutmsFMOwC_Gh1yRGs1E1dzNXys7gZPfJLemTMp"/>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="ml-[260px] mt-16 h-[calc(100vh-64px)] flex overflow-hidden">
+<!-- Center: Chat Panel -->
+<section class="flex-1 flex flex-col bg-surface-bg relative">
+<!-- Message History -->
+<div class="flex-1 overflow-y-auto chat-scroll p-margin-desktop space-y-6 pb-32">
+<!-- AI Message -->
+<div class="flex gap-4 max-w-3xl">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="psychology">psychology</span>
+</div>
+<div class="space-y-2">
+<div class="bg-surface-muted border border-border-base p-4 rounded-2xl rounded-tl-none shadow-sm">
+<p class="font-body-md text-on-surface">Hello Alex! Based on your recent commits to the <code class="bg-surface-subtle px-1 rounded font-label-sm">distributed-scheduler</code> repo, I've noticed a significant jump in your Go concurrency patterns. You're tracking well toward a Senior Backend role.</p>
+<p class="font-body-md text-on-surface mt-2">How can I help you accelerate your growth today?</p>
+</div>
+<span class="text-label-sm text-on-surface-variant ml-2">Just now</span>
+</div>
+</div>
+<!-- User Message -->
+<div class="flex gap-4 max-w-3xl ml-auto flex-row-reverse">
+<div class="w-10 h-10 rounded-lg bg-surface-container-high flex items-center justify-center shrink-0 overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="Close up of a professional software developer avatar, focusing on clear facial features and a clean, modern aesthetic that fits a high-tech corporate environment. The character has a calm, confident demeanor." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgSRe83qyPcvCj9a7AbhZcE3WkX3zBzhVUplwLlijK4cDG9kb0IQLvjTDBhvQlRkhgXsRsLIoM25VMTycFgiiZDnm_FPYlGGd714rDG7qJYW3FXDO3CUBgktdY4TO5AXescR2PjU2AL9AfwXAUb49hXdc_Mvlwmdr9vezl4FRPh5Hv0tQeVOJNI-2Ygrbe1HoQbi25PnOmABpeqCad115DFHBjiEt9W-5szgs8mIFjN5ZLsVvG-9zf"/>
+</div>
+<div class="space-y-2 text-right">
+<div class="bg-primary text-white p-4 rounded-2xl rounded-tr-none shadow-md">
+<p class="font-body-md">Analyze my gap for Senior Backend roles. What specific architecture patterns am I missing?</p>
+</div>
+<span class="text-label-sm text-on-surface-variant mr-2">2 min ago</span>
+</div>
+</div>
+<!-- AI Message (Detailed Analysis) -->
+<div class="flex gap-4 max-w-3xl">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="psychology">psychology</span>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-muted border border-border-base p-5 rounded-2xl rounded-tl-none shadow-sm">
+<p class="font-body-md text-on-surface mb-3">Comparing your current "DNA" against the Senior Backend benchmark for Tier-1 tech companies:</p>
+<div class="space-y-3">
+<div class="flex items-center gap-3 p-3 bg-surface-bg border border-border-base rounded-xl">
+<div class="w-2 h-2 rounded-full bg-error"></div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface">Event-Driven Architecture</p>
+<p class="text-body-sm text-on-surface-variant">Low visibility in public/private repos. Need to show experience with Kafka or RabbitMQ.</p>
+</div>
+<div class="font-label-sm px-2 py-1 bg-surface-subtle rounded border border-border-base">HIGH GAP</div>
+</div>
+<div class="flex items-center gap-3 p-3 bg-surface-bg border border-border-base rounded-xl">
+<div class="w-2 h-2 rounded-full bg-success"></div>
+<div class="flex-1">
+<p class="font-label-md text-on-surface">Database Optimization</p>
+<p class="text-body-sm text-on-surface-variant">Strong. Your recent SQL optimization reduced latency by 40%.</p>
+</div>
+<div class="font-label-sm px-2 py-1 bg-surface-subtle rounded border border-border-base text-success">MATCHED</div>
+</div>
+</div>
+<p class="font-body-md text-on-surface mt-4">I've updated your <strong>Learning Roadmap</strong> on the right sidebar with specific modules for Event Sourcing.</p>
+</div>
+<span class="text-label-sm text-on-surface-variant ml-2">1 min ago</span>
+</div>
+</div>
+<!-- Animated Loading State -->
+<div class="flex gap-4 max-w-3xl opacity-60">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary ai-pulse" data-icon="psychology">psychology</span>
+</div>
+<div class="flex items-center gap-1.5 p-4 bg-surface-subtle rounded-2xl">
+<div class="w-2 h-2 bg-primary rounded-full animate-bounce" style="animation-delay: 0s"></div>
+<div class="w-2 h-2 bg-primary rounded-full animate-bounce" style="animation-delay: 0.2s"></div>
+<div class="w-2 h-2 bg-primary rounded-full animate-bounce" style="animation-delay: 0.4s"></div>
+</div>
+</div>
+</div>
+<!-- Bottom: Input Area -->
+<div class="absolute bottom-0 left-0 right-0 p-margin-desktop bg-gradient-to-t from-surface-bg via-surface-bg/95 to-transparent">
+<div class="max-w-4xl mx-auto space-y-4">
+<!-- Suggested Questions -->
+<div class="flex gap-2 overflow-x-auto pb-2 no-scrollbar">
+<button class="shrink-0 px-4 py-2 rounded-full border border-border-base bg-surface-bg hover:border-primary hover:text-primary transition-all text-body-sm whitespace-nowrap">
+                            What should I learn next?
+                        </button>
+<button class="shrink-0 px-4 py-2 rounded-full border border-border-base bg-surface-bg hover:border-primary hover:text-primary transition-all text-body-sm whitespace-nowrap">
+                            Review my portfolio draft
+                        </button>
+<button class="shrink-0 px-4 py-2 rounded-full border border-border-base bg-surface-bg hover:border-primary hover:text-primary transition-all text-body-sm whitespace-nowrap">
+                            Simulate System Design interview
+                        </button>
+<button class="shrink-0 px-4 py-2 rounded-full border border-border-base bg-surface-bg hover:border-primary hover:text-primary transition-all text-body-sm whitespace-nowrap">
+                            Salary benchmarks for L5
+                        </button>
+</div>
+<!-- Input Bar -->
+<div class="relative group">
+<div class="absolute inset-0 bg-primary/5 blur-xl group-focus-within:bg-primary/10 transition-all rounded-2xl"></div>
+<div class="relative flex items-center bg-surface-bg border border-border-base rounded-2xl p-2 pl-5 focus-within:border-primary transition-all shadow-lg">
+<input class="flex-1 bg-transparent border-none focus:ring-0 text-body-md py-3 text-on-surface" placeholder="Ask your Career Coach anything..." type="text"/>
+<button class="p-3 bg-primary text-white rounded-xl hover:opacity-90 transition-all">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+</button>
+</div>
+</div>
+<p class="text-center text-label-sm text-on-surface-variant opacity-60">DevCompass AI can make mistakes. Check important info.</p>
+</div>
+</div>
+</section>
+<!-- Right Sidebar: Learning recommendations -->
+<aside class="w-80 border-l border-border-base bg-surface-muted flex flex-col p-6 overflow-y-auto chat-scroll">
+<div class="mb-8">
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Focused Growth</h3>
+<p class="text-body-sm text-on-surface-variant">Recommended actions to hit your next career milestone.</p>
+</div>
+<!-- Priority Section -->
+<div class="space-y-6">
+<div>
+<div class="flex items-center justify-between mb-3">
+<h4 class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant">Top Priorities</h4>
+<span class="material-symbols-outlined text-primary text-[18px]" data-icon="auto_awesome">auto_awesome</span>
+</div>
+<div class="space-y-3">
+<!-- Recommendation Card -->
+<div class="p-4 bg-surface-bg rounded-xl border-l-4 border-secondary shadow-sm hover:shadow-md transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-sm text-secondary bg-secondary/10 px-2 py-0.5 rounded font-mono">HIGH PRIORITY</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<p class="font-body-md font-semibold text-on-surface">Master Event Sourcing</p>
+<div class="flex items-center gap-3 mt-3 text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span> 12h est.</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="layers">layers</span> 4 Modules</span>
+</div>
+</div>
+<!-- Recommendation Card -->
+<div class="p-4 bg-surface-bg rounded-xl border-l-4 border-primary shadow-sm hover:shadow-md transition-all cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<span class="font-label-sm text-primary bg-primary/10 px-2 py-0.5 rounded font-mono">MEDIUM</span>
+<span class="material-symbols-outlined text-on-surface-variant text-[16px] group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</div>
+<p class="font-body-md font-semibold text-on-surface">Redis Caching Patterns</p>
+<div class="flex items-center gap-3 mt-3 text-label-sm text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="schedule">schedule</span> 5h est.</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[14px]" data-icon="layers">layers</span> 2 Modules</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Skill Priority List -->
+<div>
+<h4 class="font-label-md text-label-md uppercase tracking-wider text-on-surface-variant mb-3">Skill Radar</h4>
+<div class="space-y-2">
+<div class="flex items-center justify-between p-2 bg-surface-bg rounded-lg border border-border-base">
+<span class="text-body-sm font-medium">System Design</span>
+<div class="w-24 h-1.5 bg-surface-subtle rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[85%]"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 bg-surface-bg rounded-lg border border-border-base">
+<span class="text-body-sm font-medium">Golang</span>
+<div class="w-24 h-1.5 bg-surface-subtle rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[92%]"></div>
+</div>
+</div>
+<div class="flex items-center justify-between p-2 bg-surface-bg rounded-lg border border-border-base">
+<span class="text-body-sm font-medium">Kubernetes</span>
+<div class="w-24 h-1.5 bg-surface-subtle rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[40%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Motivation/Insight -->
+<div class="p-4 rounded-2xl bg-gradient-to-br from-primary to-secondary text-white relative overflow-hidden">
+<div class="absolute -right-4 -bottom-4 opacity-20 transform rotate-12">
+<span class="material-symbols-outlined text-[80px]" data-icon="trending_up">trending_up</span>
+</div>
+<p class="font-label-md opacity-80 mb-1">PROJECTION</p>
+<p class="font-body-md font-bold mb-2">Next Promotion: 4.2 Months</p>
+<p class="text-label-sm opacity-90 leading-tight">Closing the "Event-Driven" gap will increase your promotion probability by 32%.</p>
+</div>
+</div>
+</aside>
+</main>
+<!-- Micro-interaction Scripts -->
+<script>
+        // Simple click effect for input suggestions
+        document.querySelectorAll('button.shrink-0').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const input = document.querySelector('input[type="text"]');
+                input.value = btn.innerText.trim();
+                input.focus();
+            });
+        });
+
+        // Atmospheric shimmer effect on AI cards
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('ai-glow');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.bg-surface-muted').forEach(card => observer.observe(card));
+    </script>
+</body></html>
