@@ -4,28 +4,29 @@ import { URL } from 'url'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { loadEnv } from 'vite'
+import type { VercelRequest, VercelResponse } from '@vercel/node'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 Object.assign(process.env, loadEnv('development', root, ''))
 
-type Handler = (req: IncomingMessage & { body?: unknown; method?: string }, res: ServerResponse) => Promise<void>
+type Handler = (req: VercelRequest, res: VercelResponse) => Promise<unknown>
 
 const routes: Record<string, () => Promise<{ default: Handler }>> = {
-  '/api/github/sync': () => import('../api/github/sync'),
-  '/api/analysis/run': () => import('../api/analysis/run'),
-  '/api/analysis/get': () => import('../api/analysis/get'),
-  '/api/profile/get': () => import('../api/profile/get'),
-  '/api/career-coach/chat': () => import('../api/career-coach/chat'),
-  '/api/career-coach/messages': () => import('../api/career-coach/messages'),
-  '/api/portfolio/generate': () => import('../api/portfolio/generate'),
-  '/api/resume/generate': () => import('../api/resume/generate'),
-  '/api/jobs/match': () => import('../api/jobs/match'),
-  '/api/repos/recommend': () => import('../api/repos/recommend'),
-  '/api/learning/roadmap': () => import('../api/learning/roadmap'),
-  '/api/university/missions': () => import('../api/university/missions'),
-  '/api/university/complete': () => import('../api/university/complete'),
-  '/api/reports/weekly': () => import('../api/reports/weekly'),
-  '/api/reports/list': () => import('../api/reports/list'),
+  '/api/github/sync': () => import('../api/_routes/github/sync'),
+  '/api/analysis/run': () => import('../api/_routes/analysis/run'),
+  '/api/analysis/get': () => import('../api/_routes/analysis/get'),
+  '/api/profile/get': () => import('../api/_routes/profile/get'),
+  '/api/career-coach/chat': () => import('../api/_routes/career-coach/chat'),
+  '/api/career-coach/messages': () => import('../api/_routes/career-coach/messages'),
+  '/api/portfolio/generate': () => import('../api/_routes/portfolio/generate'),
+  '/api/resume/generate': () => import('../api/_routes/resume/generate'),
+  '/api/jobs/match': () => import('../api/_routes/jobs/match'),
+  '/api/repos/recommend': () => import('../api/_routes/repos/recommend'),
+  '/api/learning/roadmap': () => import('../api/_routes/learning/roadmap'),
+  '/api/university/missions': () => import('../api/_routes/university/missions'),
+  '/api/university/complete': () => import('../api/_routes/university/complete'),
+  '/api/reports/weekly': () => import('../api/_routes/reports/weekly'),
+  '/api/reports/list': () => import('../api/_routes/reports/list'),
 }
 
 function readBody(req: IncomingMessage): Promise<string> {
@@ -77,7 +78,7 @@ const server = createServer(async (req, res) => {
       body: bodyStr ? JSON.parse(bodyStr) : {},
       query: Object.fromEntries(url.searchParams),
     })
-    await mod.default(vercelReq as never, createVercelRes(res) as never)
+    await mod.default(vercelReq as VercelRequest, createVercelRes(res) as unknown as VercelResponse)
   } catch (err) {
     res.statusCode = 500
     res.end(JSON.stringify({ error: err instanceof Error ? err.message : 'Server error' }))

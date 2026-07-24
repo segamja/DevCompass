@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
-import { getUserFromRequest, getServiceSupabase, json, unauthorized } from '../_lib/auth'
-import { TABLES } from '../_lib/tables'
-import type { AnalysisResult } from '../../src/types/analysis'
+import { getUserFromRequest, getServiceSupabase, json, unauthorized } from '../../_lib/auth'
+import { TABLES } from '../../_lib/tables'
+import type { AnalysisResult } from '../../../src/types/analysis'
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const user = await getUserFromRequest(req)
