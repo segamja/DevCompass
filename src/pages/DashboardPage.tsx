@@ -34,7 +34,13 @@ export default function DashboardPage() {
 
   if (!analysis) {
     return (
-      <div className="p-margin-desktop max-w-container-max mx-auto text-center py-20">
+      <div className="p-margin-desktop max-w-container-max mx-auto text-center py-20 relative">
+        {analyzing && (
+          <div className="absolute inset-0 bg-surface-bg/80 backdrop-blur-sm flex flex-col items-center justify-center z-10 rounded-2xl">
+            <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin mb-4" />
+            <p className="font-body-lg text-on-surface">{t('dashboard.analyzingHint')}</p>
+          </div>
+        )}
         <Icon name="analytics" className="text-6xl text-primary mb-4" />
         <h2 className="font-headline-lg text-headline-lg mb-4">{t('dashboard.welcomeTitle')}</h2>
         <p className="font-body-lg text-on-surface-variant mb-8 max-w-md mx-auto">
@@ -51,7 +57,7 @@ export default function DashboardPage() {
             )}
           </div>
         )}
-        <Button size="lg" onClick={handleAnalyze} disabled={analyzing}>
+        <Button type="button" size="lg" onClick={handleAnalyze} disabled={analyzing}>
           <Icon name="bolt" filled />
           {analyzing ? t('common.analyzing') : t('dashboard.analyzeCta')}
         </Button>

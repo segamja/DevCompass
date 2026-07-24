@@ -47,7 +47,7 @@ export function Sidebar() {
         {error && (
           <p className="font-body-sm text-error text-center leading-snug">{error}</p>
         )}
-        <Button className="w-full" onClick={handleAnalyze} disabled={isLoading}>
+        <Button type="button" className="w-full" onClick={handleAnalyze} disabled={isLoading}>
           <Icon name="bolt" filled />
           {isLoading ? t('common.analyzing') : t('appShell.analyzeDna')}
         </Button>

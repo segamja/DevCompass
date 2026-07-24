@@ -17,6 +17,7 @@ import GitHubUniversityPage from '@/pages/GitHubUniversityPage'
 import WeeklyReportPage from '@/pages/WeeklyReportPage'
 import SettingsPage from '@/pages/SettingsPage'
 import AuthCallbackPage from '@/pages/AuthCallbackPage'
+import { AuthBootstrap } from '@/components/layout/AuthBootstrap'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,6 +31,7 @@ const queryClient = new QueryClient({
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <AuthBootstrap />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />

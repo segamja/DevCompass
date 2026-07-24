@@ -8,6 +8,7 @@ import { DEMO_ANALYSIS } from '@/lib/demo'
 export function useAnalysis() {
   const { analysis, setAnalysis } = useAnalysisStore()
   const isDemo = useAuthStore((s) => s.isDemo)
+  const session = useAuthStore((s) => s.session)
 
   const query = useQuery({
     queryKey: ['analysis'],
@@ -17,7 +18,11 @@ export function useAnalysis() {
       return data
     },
     staleTime: 5 * 60 * 1000,
-    enabled: isDemo || !!useAuthStore.getState().session,
+    enabled: isDemo || !!session,
+    retry: (failureCount, error) => {
+      if (error instanceof Error && error.message === 'Not authenticated') return false
+      return failureCount < 1
+    },
   })
 
   useEffect(() => {

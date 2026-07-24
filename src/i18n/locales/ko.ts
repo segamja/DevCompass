@@ -95,6 +95,7 @@ export const ko: TranslationDict = {
     welcomeTitle: 'DevCompass에 오신 것을 환영합니다',
     welcomeDesc: 'GitHub를 연결하고 첫 DNA 분석을 실행하면 커리어 대시보드가 열립니다.',
     analyzeCta: 'DNA 분석하기',
+    analyzingHint: 'GitHub 데이터를 수집하고 AI 분석을 실행 중입니다...',
     careerScore: '커리어 점수',
     dnaRank: 'DNA 순위',
     dnaRankValue: '상위 {{percent}}%',

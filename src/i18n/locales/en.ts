@@ -119,6 +119,7 @@ export const en: TranslationDict = {
   dna: {
     empty: 'No DNA analysis yet.',
     analyzeCta: 'Analyze DNA',
+    analyzingHint: 'Syncing GitHub data and running AI analysis...',
     primaryArchetype: 'Primary Archetype',
     aiSummary: 'AI Genetic Summary',
     stabilityScore: 'DNA Stability Score',

@@ -1,9 +1,35 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import type { Session } from '@supabase/supabase-js'
 import { supabase } from '@/lib/supabase'
+import { profileFromSession } from '@/lib/authProfile'
 import { api } from '@/lib/api'
+import { disableDemoMode } from '@/lib/demo'
+import { useAuthStore } from '@/stores/authStore'
 import { Icon } from '@/components/shared/Icon'
 import { useTranslation } from '@/i18n/useTranslation'
+
+async function resolveSession(): Promise<Session | null> {
+  const params = new URLSearchParams(window.location.search)
+  const code = params.get('code')
+
+  if (code) {
+    const { data, error } = await supabase.auth.exchangeCodeForSession(code)
+    if (error) throw error
+    return data.session
+  }
+
+  const { data: { session }, error } = await supabase.auth.getSession()
+  if (error) throw error
+  return session
+}
+
+function storeSession(session: Session) {
+  disableDemoMode()
+  useAuthStore.getState().setDemo(false)
+  useAuthStore.getState().setSession(session)
+  useAuthStore.getState().setProfile(profileFromSession(session))
+}
 
 export default function AuthCallbackPage() {
   const navigate = useNavigate()
@@ -22,46 +48,35 @@ export default function AuthCallbackPage() {
         return
       }
 
-      // PKCE / implicit: Supabase client parses hash/query and stores session
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession()
+      try {
+        let session = await resolveSession()
 
-      if (cancelled) return
+        if (cancelled) return
 
-      if (sessionError) {
-        setError(sessionError.message)
-        return
-      }
+        if (!session) {
+          await new Promise((r) => setTimeout(r, 800))
+          session = await resolveSession()
+        }
 
-      if (session) {
+        if (cancelled) return
+
+        if (!session) {
+          setError(t('auth.callbackFailed'))
+          return
+        }
+
+        storeSession(session)
+
         if (session.provider_token) {
           api.syncGitHub().catch(() => {
-            // Token sync can fail if DB is not ready; user can retry from dashboard.
+            // User can retry from dashboard if DB or token storage is not ready.
           })
         }
+
         navigate('/dashboard', { replace: true })
-        return
-      }
-
-      // Wait briefly for onAuthStateChange after redirect
-      await new Promise((r) => setTimeout(r, 500))
-      const { data: { session: retrySession }, error: retryError } = await supabase.auth.getSession()
-
-      if (cancelled) return
-
-      if (retryError) {
-        setError(retryError.message)
-        return
-      }
-
-      if (retrySession) {
-        if (retrySession.provider_token) {
-          api.syncGitHub().catch(() => {
-            // Token sync can fail if DB is not ready; user can retry from dashboard.
-          })
-        }
-        navigate('/dashboard', { replace: true })
-      } else {
-        setError(t('auth.callbackFailed'))
+      } catch (err) {
+        if (cancelled) return
+        setError(err instanceof Error ? err.message : t('auth.callbackFailed'))
       }
     }
 
@@ -98,4 +113,3 @@ export default function AuthCallbackPage() {
     </div>
   )
 }
-

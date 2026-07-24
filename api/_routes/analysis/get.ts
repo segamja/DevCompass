@@ -9,11 +9,15 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (!user) return unauthorized(res)
 
   const supabase = getServiceSupabase()
-  const { data } = await supabase
+  const { data, error: dbError } = await supabase
     .from(TABLES.analysisResults)
     .select('result')
     .eq('user_id', user.id)
-    .single()
+    .maybeSingle()
+
+  if (dbError) {
+    return json(res, 500, { error: dbError.message })
+  }
 
   return json(res, 200, { analysis: data?.result ?? null })
 }
