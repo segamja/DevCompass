@@ -279,4 +279,14 @@ export const en: TranslationDict = {
       'GitHub API token not found. Enable "Store provider tokens" for the GitHub provider in Supabase, then sign in with GitHub again using the button below.',
     reconnectGitHub: 'Reconnect GitHub',
   },
+  update: {
+    title: 'A new version is available',
+    description: 'A newer build is live on the server. Refresh to use the latest features including DNA analysis fixes.',
+    current: 'Current version',
+    latest: 'Latest version',
+    hint: 'Your browser may be serving a cached older build. Use the button below to update.',
+    refreshNow: 'Update now',
+    later: 'Remind me in 1 hour',
+    dismiss: 'Close',
+  },
 }

@@ -18,6 +18,7 @@ import WeeklyReportPage from '@/pages/WeeklyReportPage'
 import SettingsPage from '@/pages/SettingsPage'
 import AuthCallbackPage from '@/pages/AuthCallbackPage'
 import { AuthBootstrap } from '@/components/layout/AuthBootstrap'
+import { UpdatePrompt } from '@/components/shared/UpdatePrompt'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -32,6 +33,7 @@ export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthBootstrap />
+      <UpdatePrompt />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LandingPage />} />

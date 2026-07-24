@@ -1,6 +1,17 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node'
+import { readFileSync } from 'fs'
+import { join } from 'path'
 
 type RouteHandler = (req: VercelRequest, res: VercelResponse) => Promise<unknown>
+
+function getAppVersion(): string {
+  try {
+    const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf-8')) as { version?: string }
+    return pkg.version ?? 'unknown'
+  } catch {
+    return 'unknown'
+  }
+}
 
 const routes: Record<string, () => Promise<{ default: RouteHandler }>> = {
   'github/sync': () => import('./routes/github/sync'),
@@ -47,7 +58,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const routeKey = getRouteKey(req)
 
   if (routeKey === 'health') {
-    return res.status(200).json({ ok: true, service: 'devcompass-api' })
+    return res.status(200).json({
+      ok: true,
+      service: 'devcompass-api',
+      version: getAppVersion(),
+    })
   }
 
   const loader = routes[routeKey]

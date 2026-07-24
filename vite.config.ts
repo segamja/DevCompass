@@ -1,6 +1,6 @@
 import { execSync } from 'child_process'
-import { readFileSync } from 'fs'
-import { defineConfig } from 'vite'
+import { readFileSync, writeFileSync } from 'fs'
+import { defineConfig, type Plugin } from 'vite'
 import react from '@vitejs/plugin-react'
 import path from 'path'
 
@@ -14,11 +14,28 @@ function getGitSha(): string {
   }
 }
 
+const gitSha = getGitSha()
+
+function versionJsonPlugin(version: string, sha: string): Plugin {
+  const writeVersionFile = () => {
+    writeFileSync(
+      path.resolve('public/version.json'),
+      JSON.stringify({ version, sha, builtAt: new Date().toISOString() }, null, 2),
+    )
+  }
+
+  return {
+    name: 'devcompass-version-json',
+    buildStart: writeVersionFile,
+    configureServer: writeVersionFile,
+  }
+}
+
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), versionJsonPlugin(pkg.version, gitSha)],
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
-    __GIT_SHA__: JSON.stringify(getGitSha()),
+    __GIT_SHA__: JSON.stringify(gitSha),
   },
   resolve: {
     alias: {
